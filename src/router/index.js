@@ -79,7 +79,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        meta: { title: '首页', icon: 'user', affix: true }
       }
     ]
   },
@@ -132,13 +132,14 @@ export const asyncRoutes = [
   {
     path: '/permission',
     component: Layout,
-    redirect: '/permission/page',
-    alwaysShow: true, // will always show the root menu
+    redirect: '/permission/page',//重定向地址，在面包屑中点击会重定向去的地址
+    alwaysShow: true, // 一直显示根路由
+    //hidden:true,//不在侧边栏线上
     name: 'Permission',
     meta: {
-      title: 'Permission',
+      title: '推广管理',
       icon: 'lock',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['admin', 'editor'] //你可以在根路由设置权限，这样它下面所有的子路由都继承了这个权限
     },
     children: [
       {
@@ -146,8 +147,8 @@ export const asyncRoutes = [
         component: () => import('@/views/permission/page'),
         name: 'PagePermission',
         meta: {
-          title: 'Page Permission',
-          roles: ['admin'] // or you can only set roles in sub nav
+          title: '广告管理',
+          roles: ['admin'] //或者你可以给每一个子路由设置自己的权限
         }
       },
       {
@@ -155,7 +156,7 @@ export const asyncRoutes = [
         component: () => import('@/views/permission/directive'),
         name: 'DirectivePermission',
         meta: {
-          title: 'Directive Permission'
+          title: '精选管理'
           // if do not set roles, means: this page does not require permission
         }
       },
@@ -164,7 +165,7 @@ export const asyncRoutes = [
         component: () => import('@/views/permission/role'),
         name: 'RolePermission',
         meta: {
-          title: 'Role Permission',
+          title: '特惠管理',
           roles: ['admin']
         }
       }

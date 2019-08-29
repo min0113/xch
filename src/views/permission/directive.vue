@@ -1,95 +1,54 @@
 <template>
-  <div class="app-container">
-    <switch-roles @change="handleRolesChange" />
-    <div :key="key" style="margin-top:30px;">
-      <div>
-        <span v-permission="['admin']" class="permission-alert">
-          Only
-          <el-tag class="permission-tag" size="small">admin</el-tag> can see this
-        </span>
-        <el-tag v-permission="['admin']" class="permission-sourceCode" type="info">
-          v-permission="['admin']"
-        </el-tag>
-      </div>
+  <div class="app-container" id="directive">
+   
+    <el-tabs type="border-card">
+    <el-tab-pane>
+    
+    <span slot="label">精选列表</span>
 
-      <div>
-        <span v-permission="['editor']" class="permission-alert">
-          Only
-          <el-tag class="permission-tag" size="small">editor</el-tag> can see this
-        </span>
-        <el-tag v-permission="['editor']" class="permission-sourceCode" type="info">
-          v-permission="['editor']"
-        </el-tag>
-      </div>
+    <SelectedCourses/>
 
-      <div>
-        <span v-permission="['admin','editor']" class="permission-alert">
-          Both
-          <el-tag class="permission-tag" size="small">admin</el-tag> and
-          <el-tag class="permission-tag" size="small">editor</el-tag> can see this
-        </span>
-        <el-tag v-permission="['admin','editor']" class="permission-sourceCode" type="info">
-          v-permission="['admin','editor']"
-        </el-tag>
-      </div>
-    </div>
+  </el-tab-pane>
+  <el-tab-pane label="添加课程">
+    <AdditionalCourses/>
+  </el-tab-pane>
+  <el-tab-pane label="添加商品">
+    <AddingGoods/>
+  </el-tab-pane>
 
-    <div :key="'checkPermission'+key" style="margin-top:60px;">
-      <aside>
-        In some cases, using v-permission will have no effect. For example: Element-UI's Tab component or el-table-column and other scenes that dynamically render dom. You can only do this with v-if.
-        <br> e.g.
-      </aside>
+</el-tabs>
 
-      <el-tabs type="border-card" style="width:550px;">
-        <el-tab-pane v-if="checkPermission(['admin'])" label="Admin">
-          Admin can see this
-          <el-tag class="permission-sourceCode" type="info">
-            v-if="checkPermission(['admin'])"
-          </el-tag>
-        </el-tab-pane>
-
-        <el-tab-pane v-if="checkPermission(['editor'])" label="Editor">
-          Editor can see this
-          <el-tag class="permission-sourceCode" type="info">
-            v-if="checkPermission(['editor'])"
-          </el-tag>
-        </el-tab-pane>
-
-        <el-tab-pane v-if="checkPermission(['admin','editor'])" label="Admin-OR-Editor">
-          Both admin or editor can see this
-          <el-tag class="permission-sourceCode" type="info">
-            v-if="checkPermission(['admin','editor'])"
-          </el-tag>
-        </el-tab-pane>
-      </el-tabs>
-    </div>
-  </div>
+</div>
 </template>
 
 <script>
 import permission from '@/directive/permission/index.js' // 权限判断指令
-import checkPermission from '@/utils/permission' // 权限判断函数
-import SwitchRoles from './components/SwitchRoles'
+// import checkPermission from '@/utils/permission' // 权限判断函数
+// import SwitchRoles from './components/SwitchRoles'
+import SelectedCourses from './components/SelectedCourses'
+import AdditionalCourses from './components/AdditionalCourses'
+import AddingGoods from './components/AddingGoods'
 
 export default {
   name: 'DirectivePermission',
-  components: { SwitchRoles },
-  directives: { permission },
+   components: { 
+    SelectedCourses,
+    AdditionalCourses,
+    AddingGoods
+   },
+  // directives: { permission },
   data() {
-    return {
-      key: 1 // 为了能每次切换权限的时候重新初始化指令
-    }
+      return {
+      
+      }
   },
   methods: {
-    checkPermission,
-    handleRolesChange() {
-      this.key++
-    }
+   
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .app-container {
   /deep/ .permission-alert {
     width: 320px;
@@ -107,5 +66,31 @@ export default {
     background-color: #ecf5ff;
   }
 }
+/*重置样式*/
+#directive{
+  .el-tabs--border-card > .el-tabs__header {
+     background-color: #ECE6E1; 
+    border-bottom: 1px solid hsl(219, 28%, 90%);
+    margin: 0;
+}
+
+.el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+    color: #000;
+    background-color: hsl(0, 0%, 100%);
+    border-right-color: #fff;
+    border-left-color:  #fff;
+}
+
+.el-tabs--border-card > .el-tabs__header .el-tabs__item {
+    -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    /*border: 1px solid  #ECE6E1;*/
+    margin-top: -1px;
+     color: #000; 
+}
+
+}
+
+
 </style>
 

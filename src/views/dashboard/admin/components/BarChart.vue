@@ -1,5 +1,10 @@
 <template>
-  <div :class="className" :style="{height:height,width:width}" />
+
+
+  <div :class="className" :style="{height:height,width:width}">
+
+  </div>
+
 </template>
 
 <script>
@@ -22,7 +27,7 @@ export default {
     },
     height: {
       type: String,
-      default: '300px'
+      default: '33vh'
     }
   },
   data() {
@@ -46,57 +51,96 @@ export default {
     initChart() {
       this.chart = echarts.init(this.$el, 'macarons')
 
-      this.chart.setOption({
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: { // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-          }
+  this.chart.setOption({
+     backgroundColor: '#ffffff',
+      color: ['#A18369'],
+     title: {
+             text: '销售趋势',
+              x: '2.5%',
+              y:'7%',
+              textStyle:{
+                color:"#000000",
+                fontSize:'9px',
+                fontWeight:900
+
+              }
+
+
         },
-        grid: {
-          top: 10,
-          left: '2%',
-          right: '2%',
-          bottom: '3%',
-          containLabel: true
+   
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        show:true,
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true,
+        backgroundColor:'#fff'
+    },
+    xAxis : [
+        {
+            type : 'category',
+            data : ['10月1日', '10月1日', '10月1日', '10月1日', '10月1日', '10月1日', '10月1日','10月1日','10月1日','10月1日'],
+            axisTick: {
+                alignWithLabel: true
+            },
+             axisLine:{
+        lineStyle: {
+          color:"#000000",
+        }
+
+       }
+        }
+    ],
+    yAxis : {
+       splitLine: {
+        lineStyle:{
+          type:'dashed',
+         
+
         },
-        xAxis: [{
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          axisTick: {
-            alignWithLabel: true
-          }
-        }],
-        yAxis: [{
-          type: 'value',
-          axisTick: {
-            show: false
-          }
-        }],
-        series: [{
-          name: 'pageA',
-          type: 'bar',
-          stack: 'vistors',
-          barWidth: '60%',
-          data: [79, 52, 200, 334, 390, 330, 220],
-          animationDuration
-        }, {
-          name: 'pageB',
-          type: 'bar',
-          stack: 'vistors',
-          barWidth: '60%',
-          data: [80, 52, 200, 334, 390, 330, 220],
-          animationDuration
-        }, {
-          name: 'pageC',
-          type: 'bar',
-          stack: 'vistors',
-          barWidth: '60%',
-          data: [30, 52, 200, 334, 390, 330, 220],
-          animationDuration
-        }]
+         show: true
+       },
+
+       axisLine:{
+        show:false,
+        lineStyle: {
+          color:"#000000"
+        }
+
+       },
+       axisTick:{
+        show:false
+       }
+    },
+    series : [
+        {
+            name:'直接访问',
+            type:'bar',
+            barWidth: '40%',
+            data:[10, 52, 200, 334, 390, 330, 220, 390, 330, 220],
+
+        }
+    ]
       })
     }
   }
 }
 </script>
+
+<style scoped lang="scss">
+
+  .chart{
+    /*border: solid 1px red;*/
+    background-color: #fff;
+  
+
+  }
+  
+
+</style>
